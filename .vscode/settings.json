@@ -1,0 +1,21 @@
+{
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.insertSpaces": true,
+  "eslint.validate": ["javascript"],
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.tabCompletion": "on",
+  "editor.formatOnSave": true,
+  "diffEditor.ignoreTrimWhitespace": true,
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#f069c5",
+    "titleBar.activeForeground": "#000"
+  }
+}
