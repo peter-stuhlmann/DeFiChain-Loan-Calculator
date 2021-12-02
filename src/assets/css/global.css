@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/open-sans/open-sans-regular.ttf') format("truetype");
+    font-weight: 400;
+    font-display: swap;
+
+  }
+
+  body {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Open Sans';
+  }
