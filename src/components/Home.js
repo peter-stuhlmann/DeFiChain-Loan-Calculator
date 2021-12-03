@@ -35,7 +35,7 @@ export default function Home() {
         });
       })
       .catch((error) => console.log(error));
-  }, [values]);
+  }, []);
 
   console.log(values.price);
   const handleChange = (prop) => (event) => {
@@ -81,7 +81,7 @@ export default function Home() {
       setAlert({
         status: 'warning',
         message:
-          'Achtung! Du näherst Dich der Liquidierungsgrenze. Hinterlege entweder mehr Sicherheiten im Collateral oder zahle einen Teil Deines Loans zurück.',
+          'Achtung! Du näherst Dich der Liquidierungsgrenze. Hinterlege entweder mehr Collateral oder zahle einen Teil Deines Loans zurück.',
       });
     }
   }, [newCollateralValue, newCollateralMinValue, values.newPrice]);
@@ -124,8 +124,8 @@ export default function Home() {
           <Heading>3. Schritt: Collateral hinterlegen</Heading>
           <Text>
             Das Collateral muss zu mind. 50% aus DFI bestehen, der Rest kann
-            entweder DFI oder dBTC, dETH, dUSDC etc. sein. Andere Assets haben
-            ggf. unterschiedliche Gewichtungen (collateral factor). Momentan
+            entweder DFI oder dBTC, dUSDC etc. sein. Andere Assets haben ggf.
+            unterschiedliche Gewichtungen (collateral factor). Momentan
             unterstützt dieser Rechner nur die Variante, dass 100% in DFI als
             Collateral hinterlegt werden.
           </Text>
@@ -145,7 +145,7 @@ export default function Home() {
               onChange={handleChange('price')}
               endAdornment={<InputAdornment position="end">$</InputAdornment>}
               inputProps={{
-                step: '0.2',
+                step: '0.1',
                 'aria-label': 'Dollar-Preis',
               }}
             />
@@ -192,7 +192,7 @@ export default function Home() {
               onChange={handleChange('newPrice')}
               endAdornment={<InputAdornment position="end">$</InputAdornment>}
               inputProps={{
-                step: '0.2',
+                step: '0.1',
                 'aria-label': 'Neuer DFI-Preis',
                 min: 0,
               }}
@@ -219,7 +219,7 @@ export default function Home() {
                       values.amount * values.newPrice
                   )
                 ).toFixed(2)}$ höher als `}
-              {values.newPrice === values.price && 'genauso wie hoch '}
+              {values.newPrice === values.price && 'genauso hoch wie '}
               am Anfang. Du hast eine Summe von{' '}
               {parseFloat(values.loan).toFixed(2)}$ gemintet und musst dafür ein
               Collateral von mind.{' '}
@@ -336,8 +336,7 @@ const Text = styled.p`
 `;
 
 const OrderedList = styled.ol`
-  list-style-type: none;
-  margin: 0;
+  margin: 0 0 0 1em;
   padding: 0;
 `;
 
