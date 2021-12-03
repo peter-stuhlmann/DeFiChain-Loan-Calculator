@@ -71,176 +71,202 @@ export default function Home() {
   }, [newCollateralValue, newCollateralMinValue, values.newPrice]);
 
   return (
-    <Container>
-      <Title>
-        <img src={jellyfish} alt="DeFi Chain Jellyfish" />
-        DefiChain Loan-Rechner
-      </Title>
-      <Step>
-        <Heading>1. Schritt: Vault erstellen</Heading>
-        <Text>
-          Hier entstehen Kosten in Höhe von 2 DFI. Ein DFI wird geburned, der
-          andere wird beim Auflösen des Vaults zurückerstattet. Hinzu kommen
-          noch die Transaktionsgebühren.
-        </Text>
-      </Step>
-      <Step>
-        <Heading>2. Schritt: Loan Scheme wählen</Heading>
-        <div>
-          <RadioGroup
-            aria-label="Loan-Schema"
-            value={values.loanScheme}
-            onChange={handleChange('loanScheme')}
-          >
-            {loanSchemes.map((scheme, index) => (
-              <FormControlLabel
-                key={index}
-                value={index}
-                control={<Radio />}
-                label={`Minimum Collateral - ${scheme.collateral}% - ${scheme.interestRate}% Zinsen`}
-              />
-            ))}
-          </RadioGroup>
-        </div>
-      </Step>
-      <Step>
-        <Heading>3. Schritt: Collateral hinterlegen</Heading>
-        <Text>
-          Das Collateral muss zu mind. 50% aus DFI bestehen, der Rest kann
-          entweder DFI oder dBTC, dETH, dUSDC etc. sein. Andere Assets haben
-          ggf. unterschiedliche Gewichtungen (collateral factor). Momentan
-          unterstützt dieser Rechner nur die Variante, dass 100% in DFI als
-          Collateral hinterlegt werden.
-        </Text>
-        <InputGroup>
-          <Input
-            type="number"
-            value={values.amount}
-            onChange={handleChange('amount')}
-            endAdornment={<InputAdornment position="end">DFI</InputAdornment>}
-            inputProps={{
-              'aria-label': 'Menge an DFI',
-            }}
-          />
-          <Input
-            type="number"
-            value={values.price}
-            onChange={handleChange('price')}
-            endAdornment={<InputAdornment position="end">$</InputAdornment>}
-            inputProps={{
-              step: '0.2',
-              'aria-label': 'Dollar-Preis',
-            }}
-          />
-        </InputGroup>
-      </Step>
-      <Step>
-        <Heading>4. Schritt: Kredithöhe wählen</Heading>
-        <Text>
-          Mit {parseFloat(values.amount)} DFI und dem gewählten Loan-Schema (
-          {loanSchemes[values.loanScheme].collateral}%,{' '}
-          {loanSchemes[values.loanScheme].interestRate}% Zinsen) kannst Du bis
-          zu {parseFloat(maxLoanInUsd).toFixed(2)}$ minten. Du solltest
-          allerdings weniger minten, da Du sonst sofort an der Grenze bist und
-          liquidiert wirst.
-        </Text>
-        <div>
-          <Input
-            type="number"
-            value={values.loan}
-            error={values.loan > maxLoanInUsd}
-            onChange={handleChange('loan')}
-            endAdornment={<InputAdornment position="end">$</InputAdornment>}
-            inputProps={{
-              'aria-label': 'Kredithöhe',
-              min: 0,
-              max: maxLoanInUsd,
-            }}
-          />
-        </div>
-      </Step>
-      <Step>
-        <Heading>Achtung</Heading>
-        Du mintest {parseFloat(values.loan).toFixed(2)}$. Nun können zwei
-        Szenarien eintreten:
-        <OrderedList>
-          <li>DFI-Preis sinkt</li>
-          <li>DFI-Preis steigt</li>
-        </OrderedList>
-        <div>
-          <h3>Neuer DFI-Preis</h3>
-          <Input
-            type="number"
-            value={values.newPrice}
-            onChange={handleChange('newPrice')}
-            endAdornment={<InputAdornment position="end">$</InputAdornment>}
-            inputProps={{
-              step: '0.2',
-              'aria-label': 'Neuer DFI-Preis',
-              min: 0,
-            }}
-          />
+    <>
+      <Container>
+        <Title>
+          <img src={jellyfish} alt="DeFi Chain Jellyfish" />
+          DefiChain Loan-Rechner
+        </Title>
+        <Step>
+          <Heading>1. Schritt: Vault erstellen</Heading>
           <Text>
-            Der Wert Deines Collaterals ist{' '}
-            {values.newPrice < values.price && 'gesunken'}
-            {values.newPrice > values.price && 'gestiegen'}
-            {values.newPrice === values.price && 'unverändert'}. Dein Collateral
-            hat dadurch einen Wert von{' '}
-            {parseFloat(values.amount * values.newPrice).toFixed(2)}$ und ist
-            damit{' '}
-            {values.newPrice < values.price &&
-              `${parseFloat(
-                Math.abs(
-                  values.amount * values.price - values.amount * values.newPrice
-                )
-              ).toFixed(2)}$ niedriger als `}
-            {values.newPrice > values.price &&
-              `${parseFloat(
-                Math.abs(
-                  values.amount * values.price - values.amount * values.newPrice
-                )
-              ).toFixed(2)}$ höher als `}
-            {values.newPrice === values.price && 'genauso wie hoch '}
-            am Anfang. Du hast eine Summe von{' '}
-            {parseFloat(values.loan).toFixed(2)}$ gemintet und musst dafür ein
-            Collateral von mind. {parseFloat(newCollateralMinValue).toFixed(2)}$
-            hinterlegen.
+            Hier entstehen Kosten in Höhe von 2 DFI. Ein DFI wird geburned, der
+            andere wird beim Auflösen des Vaults zurückerstattet. Hinzu kommen
+            noch die Transaktionsgebühren.
           </Text>
+        </Step>
+        <Step>
+          <Heading>2. Schritt: Loan Scheme wählen</Heading>
+          <div>
+            <RadioGroup
+              aria-label="Loan-Schema"
+              value={values.loanScheme}
+              onChange={handleChange('loanScheme')}
+            >
+              {loanSchemes.map((scheme, index) => (
+                <FormControlLabel
+                  key={index}
+                  value={index}
+                  control={<Radio />}
+                  label={`Minimum Collateral - ${scheme.collateral}% - ${scheme.interestRate}% Zinsen`}
+                />
+              ))}
+            </RadioGroup>
+          </div>
+        </Step>
+        <Step>
+          <Heading>3. Schritt: Collateral hinterlegen</Heading>
+          <Text>
+            Das Collateral muss zu mind. 50% aus DFI bestehen, der Rest kann
+            entweder DFI oder dBTC, dETH, dUSDC etc. sein. Andere Assets haben
+            ggf. unterschiedliche Gewichtungen (collateral factor). Momentan
+            unterstützt dieser Rechner nur die Variante, dass 100% in DFI als
+            Collateral hinterlegt werden.
+          </Text>
+          <InputGroup>
+            <Input
+              type="number"
+              value={values.amount}
+              onChange={handleChange('amount')}
+              endAdornment={<InputAdornment position="end">DFI</InputAdornment>}
+              inputProps={{
+                'aria-label': 'Menge an DFI',
+              }}
+            />
+            <Input
+              type="number"
+              value={values.price}
+              onChange={handleChange('price')}
+              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              inputProps={{
+                step: '0.2',
+                'aria-label': 'Dollar-Preis',
+              }}
+            />
+          </InputGroup>
+        </Step>
+        <Step>
+          <Heading>4. Schritt: Kredithöhe wählen</Heading>
+          <Text>
+            Mit {parseFloat(values.amount)} DFI und dem gewählten Loan-Schema (
+            {loanSchemes[values.loanScheme].collateral}%,{' '}
+            {loanSchemes[values.loanScheme].interestRate}% Zinsen) kannst Du bis
+            zu {parseFloat(maxLoanInUsd).toFixed(2)}$ minten. Du solltest
+            allerdings weniger minten, da Du sonst sofort an der Grenze bist und
+            liquidiert wirst.
+          </Text>
+          <div>
+            <Input
+              type="number"
+              value={values.loan}
+              error={values.loan > maxLoanInUsd}
+              onChange={handleChange('loan')}
+              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              inputProps={{
+                'aria-label': 'Kredithöhe',
+                min: 0,
+                max: maxLoanInUsd,
+              }}
+            />
+          </div>
+        </Step>
+        <Step>
+          <Heading>Achtung</Heading>
+          Du mintest {parseFloat(values.loan).toFixed(2)}$. Nun können zwei
+          Szenarien eintreten:
+          <OrderedList>
+            <li>DFI-Preis sinkt</li>
+            <li>DFI-Preis steigt</li>
+          </OrderedList>
+          <div>
+            <h3>Neuer DFI-Preis</h3>
+            <Input
+              type="number"
+              value={values.newPrice}
+              onChange={handleChange('newPrice')}
+              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              inputProps={{
+                step: '0.2',
+                'aria-label': 'Neuer DFI-Preis',
+                min: 0,
+              }}
+            />
+            <Text>
+              Der Wert Deines Collaterals ist{' '}
+              {values.newPrice < values.price && 'gesunken'}
+              {values.newPrice > values.price && 'gestiegen'}
+              {values.newPrice === values.price && 'unverändert'}. Dein
+              Collateral hat dadurch einen Wert von{' '}
+              {parseFloat(values.amount * values.newPrice).toFixed(2)}$ und ist
+              damit{' '}
+              {values.newPrice < values.price &&
+                `${parseFloat(
+                  Math.abs(
+                    values.amount * values.price -
+                      values.amount * values.newPrice
+                  )
+                ).toFixed(2)}$ niedriger als `}
+              {values.newPrice > values.price &&
+                `${parseFloat(
+                  Math.abs(
+                    values.amount * values.price -
+                      values.amount * values.newPrice
+                  )
+                ).toFixed(2)}$ höher als `}
+              {values.newPrice === values.price && 'genauso wie hoch '}
+              am Anfang. Du hast eine Summe von{' '}
+              {parseFloat(values.loan).toFixed(2)}$ gemintet und musst dafür ein
+              Collateral von mind.{' '}
+              {parseFloat(newCollateralMinValue).toFixed(2)}$ hinterlegen.
+            </Text>
 
-          <Alert variant="filled" severity={alert.status}>
-            {alert.message}
-          </Alert>
-        </div>
-      </Step>
-      <Step>
-        <Heading>Neu im DeFiChain Game?</Heading>
-        <Text>
-          Wenn Du noch keinen Account bei Cake DeFi und/oder DFX Swiss hast,
-          würde ich mich freuen, wenn Du für Deine Anmeldung meinen
-          Referral-Link nutzt.
-        </Text>
-        {referrals.map((ref) => (
-          <Link
-            href={ref.href}
-            style={{ display: 'block', marginBottom: '10px' }}
-          >
-            <Alert variant="outlined">{ref.text}</Alert>
-          </Link>
-        ))}
-      </Step>
-      <Step>
-        <Heading>Weitere Informationen zu den Loans:</Heading>
-        <UnorderedList>
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href} target="_blank" rel="noreferrer noopener">
-                {link.text} ({link.description})
-              </Link>
-            </li>
+            <Alert variant="filled" severity={alert.status}>
+              {alert.message}
+            </Alert>
+          </div>
+        </Step>
+        <Step>
+          <Heading>Neu im DeFiChain Game?</Heading>
+          <Text>
+            Wenn Du noch keinen Account bei Cake DeFi und/oder DFX Swiss hast,
+            würde ich mich freuen, wenn Du für Deine Anmeldung meinen
+            Referral-Link nutzt. Wir bekommen dann beide einen Bonus 🙂
+          </Text>
+          {referrals.map((ref) => (
+            <Link
+              href={ref.href}
+              style={{ display: 'block', marginBottom: '10px' }}
+            >
+              <Alert variant="outlined">{ref.text}</Alert>
+            </Link>
           ))}
-        </UnorderedList>
-      </Step>
-    </Container>
+        </Step>
+        <Step>
+          <Heading>Weitere Informationen zu den Loans:</Heading>
+          <UnorderedList>
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <b>{link.text}</b> ({link.description})
+                </Link>
+              </li>
+            ))}
+          </UnorderedList>
+        </Step>
+      </Container>
+      <Footer>
+        Peter R. Stuhlmann, 2021 |{' '}
+        <Link
+          href="https://peter-stuhlmann-webentwicklung.de/impressum"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Impressum
+        </Link>{' '}
+        |{' '}
+        <Link
+          href="https://peter-stuhlmann-webentwicklung.de/datenschutzerklaerung"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Datenschutzerklärung
+        </Link>
+      </Footer>
+    </>
   );
 }
 
@@ -307,4 +333,15 @@ const UnorderedList = styled.ul`
 const Link = styled.a`
   text-decoration: none;
   color: #000;
+`;
+
+const Footer = styled.footer`
+  color: #7d7d7d;
+  font-size: 13px;
+  padding: 3px 10px;
+  text-align: center;
+
+  a {
+    color: #7d7d7d;
+  }
 `;
