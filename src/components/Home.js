@@ -7,11 +7,17 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import Alert from '@mui/material/Alert';
 
+import jellyfish from '../assets/svg/jellyfish.svg';
+
+import loanSchemes from '../data/loanSchemes';
+import referrals from '../data/referrals';
+import links from '../data/links';
+
 export default function Home() {
   const [values, setValues] = useState({
     amount: '1000',
     price: '4',
-    loanScheme: '2',
+    loanScheme: '0',
     loan: '600',
     newPrice: '4',
   });
@@ -19,25 +25,6 @@ export default function Home() {
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
-
-  const loanSchemes = [
-    {
-      collateral: 200,
-      interestRate: 2,
-    },
-    {
-      collateral: 350,
-      interestRate: 1.5,
-    },
-    {
-      collateral: 500,
-      interestRate: 1,
-    },
-    {
-      collateral: 1000,
-      interestRate: 0.5,
-    },
-  ];
 
   const collateralInUsd = values.price * values.amount;
   const maxLoanInUsd =
@@ -85,14 +72,17 @@ export default function Home() {
 
   return (
     <Container>
-      <h1>DefiChain Loan-Rechner</h1>
+      <Title>
+        <img src={jellyfish} alt="DeFi Chain Jellyfish" />
+        DefiChain Loan-Rechner
+      </Title>
       <Step>
         <Heading>1. Schritt: Vault erstellen</Heading>
-        <p>
+        <Text>
           Hier entstehen Kosten in Höhe von 2 DFI. Ein DFI wird geburned, der
           andere wird beim Auflösen des Vaults zurückerstattet. Hinzu kommen
           noch die Transaktionsgebühren.
-        </p>
+        </Text>
       </Step>
       <Step>
         <Heading>2. Schritt: Loan Scheme wählen</Heading>
@@ -115,13 +105,13 @@ export default function Home() {
       </Step>
       <Step>
         <Heading>3. Schritt: Collateral hinterlegen</Heading>
-        <p>
+        <Text>
           Das Collateral muss zu mind. 50% aus DFI bestehen, der Rest kann
           entweder DFI oder dBTC, dETH, dUSDC etc. sein. Andere Assets haben
           ggf. unterschiedliche Gewichtungen (collateral factor). Momentan
           unterstützt dieser Rechner nur die Variante, dass 100% in DFI als
           Collateral hinterlegt werden.
-        </p>
+        </Text>
         <InputGroup>
           <Input
             type="number"
@@ -146,14 +136,14 @@ export default function Home() {
       </Step>
       <Step>
         <Heading>4. Schritt: Kredithöhe wählen</Heading>
-        <p>
+        <Text>
           Mit {parseFloat(values.amount)} DFI und dem gewählten Loan-Schema (
           {loanSchemes[values.loanScheme].collateral}%,{' '}
           {loanSchemes[values.loanScheme].interestRate}% Zinsen) kannst Du bis
           zu {parseFloat(maxLoanInUsd).toFixed(2)}$ minten. Du solltest
           allerdings weniger minten, da Du sonst sofort an der Grenze bist und
           liquidiert wirst.
-        </p>
+        </Text>
         <div>
           <Input
             type="number"
@@ -173,10 +163,10 @@ export default function Home() {
         <Heading>Achtung</Heading>
         Du mintest {parseFloat(values.loan).toFixed(2)}$. Nun können zwei
         Szenarien eintreten:
-        <ol>
+        <OrderedList>
           <li>DFI-Preis sinkt</li>
           <li>DFI-Preis steigt</li>
-        </ol>
+        </OrderedList>
         <div>
           <h3>Neuer DFI-Preis</h3>
           <Input
@@ -190,7 +180,7 @@ export default function Home() {
               min: 0,
             }}
           />
-          <p>
+          <Text>
             Der Wert Deines Collaterals ist{' '}
             {values.newPrice < values.price && 'gesunken'}
             {values.newPrice > values.price && 'gestiegen'}
@@ -210,17 +200,45 @@ export default function Home() {
                   values.amount * values.price - values.amount * values.newPrice
                 )
               ).toFixed(2)}$ höher als `}
-            {values.newPrice === values.price && 'ganuso wie hoch '}
+            {values.newPrice === values.price && 'genauso wie hoch '}
             am Anfang. Du hast eine Summe von{' '}
             {parseFloat(values.loan).toFixed(2)}$ gemintet und musst dafür ein
             Collateral von mind. {parseFloat(newCollateralMinValue).toFixed(2)}$
             hinterlegen.
-          </p>
+          </Text>
 
           <Alert variant="filled" severity={alert.status}>
             {alert.message}
           </Alert>
         </div>
+      </Step>
+      <Step>
+        <Heading>Neu im DeFiChain Game?</Heading>
+        <Text>
+          Wenn Du noch keinen Account bei Cake DeFi und/oder DFX Swiss hast,
+          würde ich mich freuen, wenn Du für Deine Anmeldung meinen
+          Referral-Link nutzt.
+        </Text>
+        {referrals.map((ref) => (
+          <Link
+            href={ref.href}
+            style={{ display: 'block', marginBottom: '10px' }}
+          >
+            <Alert variant="outlined">{ref.text}</Alert>
+          </Link>
+        ))}
+      </Step>
+      <Step>
+        <Heading>Weitere Informationen zu den Loans:</Heading>
+        <UnorderedList>
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link href={link.href} target="_blank" rel="noreferrer noopener">
+                {link.text} ({link.description})
+              </Link>
+            </li>
+          ))}
+        </UnorderedList>
       </Step>
     </Container>
   );
@@ -232,6 +250,17 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
+`;
+
+const Title = styled.h1`
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 20px;
+    margin-bottom: -5px;
+    height: 60px;
+  }
 `;
 
 const Step = styled.div`
@@ -257,4 +286,25 @@ const Input = styled(OutlinedInput)`
   &:last-child {
     margin: 5px 0 5px 0;
   }
+`;
+
+const Text = styled.p`
+  line-height: 1.5em;
+`;
+
+const OrderedList = styled.ol`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const UnorderedList = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  color: #000;
 `;
