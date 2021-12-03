@@ -6,6 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import Alert from '@mui/material/Alert';
+import axios from 'axios';
 
 import jellyfish from '../assets/svg/jellyfish.svg';
 
@@ -16,12 +17,27 @@ import links from '../data/links';
 export default function Home() {
   const [values, setValues] = useState({
     amount: '1000',
-    price: '4',
+    price: null,
     loanScheme: '0',
     loan: '600',
-    newPrice: '4',
+    newPrice: null,
   });
 
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API)
+      .then((response) => {
+        const dfi = response.data?.coins.find((coin) => coin.id === 'DFI');
+        setValues({
+          ...values,
+          price: parseFloat(dfi.priceUSD).toFixed(2),
+          newPrice: parseFloat(dfi.priceUSD).toFixed(2),
+        });
+      })
+      .catch((error) => console.log(error));
+  }, [values]);
+
+  console.log(values.price);
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -224,6 +240,7 @@ export default function Home() {
           </Text>
           {referrals.map((ref) => (
             <Link
+              key={ref.href}
               href={ref.href}
               style={{ display: 'block', marginBottom: '10px' }}
             >
