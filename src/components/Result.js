@@ -26,12 +26,17 @@ export default function Result(props) {
   const newCollateralMinValue =
     (values.loan / 100) * loanSchemes[values.loanScheme].collateral;
 
+  const riskFactor = 1.5;
+
   useEffect(() => {
-    if (newTotal > newCollateralMinValue * 1.1) {
+    if (newTotal > newCollateralMinValue * riskFactor) {
       setAlert({ status: 'success', message: 'Alles im grünen Bereich.' });
     }
 
-    if (newTotal > newCollateralMinValue * 1.1 && tokens.DFI.newPrice >= 50) {
+    if (
+      newTotal > newCollateralMinValue * riskFactor &&
+      tokens.DFI.newPrice >= 50
+    ) {
       setAlert({
         status: 'success',
         message: 'Alles im grünen Bereich. #RoadTo50 🚀',
@@ -47,7 +52,7 @@ export default function Result(props) {
 
     if (
       newTotal > newCollateralMinValue &&
-      newTotal <= newCollateralMinValue * 1.1
+      newTotal <= newCollateralMinValue * riskFactor
     ) {
       setAlert({
         status: 'warning',
