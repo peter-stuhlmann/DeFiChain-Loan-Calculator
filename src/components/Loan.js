@@ -5,24 +5,33 @@ import Step from './styled/Step';
 import Heading from './styled/Heading';
 import Text from './styled/Text';
 import Input from './styled/Input';
+import Sum from './styled/Sum';
 
 export default function Loan(props) {
-  const { values, loanSchemes, handleChange } = props;
+  const { values, loanSchemes, handleChange, total, dfiShare } = props;
 
-  const collateralInUsd = values.price * values.amount;
   const maxLoanInUsd =
-    (collateralInUsd / loanSchemes[values.loanScheme].collateral) * 100;
+    (total / loanSchemes[values.loanScheme].collateral) * 100;
+
+  const collateralRatio = ((100 / values.loan) * total).toFixed(2);
 
   return (
     <Step>
       <Heading>4. Schritt: Kredithöhe wählen</Heading>
       <Text>
-        Mit {parseFloat(values.amount)} DFI und dem gewählten Loan-Schema (
-        {loanSchemes[values.loanScheme].collateral}%,{' '}
-        {loanSchemes[values.loanScheme].interestRate}% Zinsen) kannst Du bis zu{' '}
-        {parseFloat(maxLoanInUsd).toFixed(2)}$ minten. Du solltest allerdings
-        weniger minten, da Du sonst sofort an der Grenze bist und liquidiert
-        wirst.
+        Mit Deinem Collateral von {total.toFixed(2)}$ und dem gewählten
+        Loan-Schema ({loanSchemes[values.loanScheme].collateral}% Minimum
+        Collateral, {loanSchemes[values.loanScheme].interestRate}% Zinsen)
+        kannst Du{' '}
+        {dfiShare >= 50 || isNaN(dfiShare) ? (
+          <>
+            bis zu ${parseFloat(maxLoanInUsd).toFixed(2)}$ minten. Du solltest
+            allerdings weniger minten, da Du sonst sofort an der Grenze bist und
+            liquidiert wirst.
+          </>
+        ) : (
+          <>nicht minten, da Deine DFI-Hinterlegung weniger als 50% ausmacht.</>
+        )}
       </Text>
       <div>
         <Input
@@ -37,6 +46,7 @@ export default function Loan(props) {
             max: maxLoanInUsd,
           }}
         />
+        <Sum>Besicherungsverhältnis: {collateralRatio}%</Sum>
       </div>
     </Step>
   );
