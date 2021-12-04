@@ -8,6 +8,7 @@ import LoanSchemes from './LoanSchemes';
 import Collateral from './Collateral';
 import Loan from './Loan';
 import Result from './Result';
+import SocialMediaShare from './SocialMediaShare';
 import Referral from './Referral';
 import Links from './Links';
 import Footer from './Footer';
@@ -136,6 +137,7 @@ export default function Home() {
           tokens={tokens}
           total={total}
         />
+        <SocialMediaShare />
         <Referral />
         <Links />
       </Container>
