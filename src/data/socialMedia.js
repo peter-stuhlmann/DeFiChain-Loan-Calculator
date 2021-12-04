@@ -19,7 +19,7 @@ const socialMedia = [
   {
     media: 'Twitter',
     icon: <TwitterIcon />,
-    href: 'https://twitter.com/share?url=https://defichain-loan-calculator.vercel.app',
+    href: 'https://twitter.com/share?text=%24DFI%20%23RoadTo50%20%40DeFiChain%20%40Peter_Stuhlmann%0D&url=https://defichain-loan-calculator.vercel.app',
   },
   {
     media: 'Facebook',
