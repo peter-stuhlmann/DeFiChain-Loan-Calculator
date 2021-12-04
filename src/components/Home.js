@@ -11,20 +11,23 @@ import Result from './Result';
 import Referral from './Referral';
 import Links from './Links';
 import Footer from './Footer';
+import Snackbar from './Snackbar';
 
 import loanSchemes from '../data/loanSchemes';
 import tokensList from '../data/tokens';
+import Loading from './Loading';
 
 export default function Home() {
   const [values, setValues] = useState({
-    amount: '1000',
-    price: null,
     loanScheme: '0',
-    test: {
-      hallo: '',
-    },
-    loan: '600',
-    newPrice: null,
+    loan: '1000',
+  });
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    color: 'success',
   });
 
   const [tokens, setTokens] = useState(tokensList);
@@ -72,6 +75,7 @@ export default function Home() {
             ),
           },
         });
+        setIsLoaded(true);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -101,7 +105,7 @@ export default function Home() {
 
   const dfiShare = (100 / total) * sum.DFI;
 
-  return (
+  return isLoaded ? (
     <>
       <Container>
         <Title />
@@ -136,7 +140,10 @@ export default function Home() {
         <Links />
       </Container>
       <Footer />
+      <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
     </>
+  ) : (
+    <Loading setIsLoaded={setIsLoaded} setSnackbar={setSnackbar} />
   );
 }
 
