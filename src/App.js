@@ -11,7 +11,10 @@ import ThemeToggle from './components/ThemeToggle';
 import useLocalStorage from './helpers/useLocalStorage';
 
 export default function App() {
-  const [themeMode, setThemeMode] = useLocalStorage('Theme', 'light');
+  const [themeMode, setThemeMode] = useLocalStorage(
+    'Theme',
+    new Date().getHours() > 7 && new Date().getHours() < 21 ? 'light' : 'dark'
+  );
 
   return (
     <BrowserRouter>
