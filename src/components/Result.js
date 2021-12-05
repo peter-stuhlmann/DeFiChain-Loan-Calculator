@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import Alert from '@mui/material/Alert';
-import FormHelperText from '@mui/material/FormHelperText';
 
 import Step from './styled/Step';
 import Heading from './styled/Heading';
 import Text from './styled/Text';
 import Input from './styled/Input';
 import InputGroup from './styled/InputGroup';
+import HelperText from './styled/HelperText';
 
 export default function Result(props) {
   const { values, tokens, loanSchemes, handleTokens, total } = props;
@@ -87,7 +87,7 @@ export default function Result(props) {
                 min: 0,
               }}
             />
-            <FormHelperText>Neuer Preis pro DFI</FormHelperText>
+            <HelperText>Neuer Preis pro DFI</HelperText>
           </div>
 
           <div>
@@ -104,7 +104,7 @@ export default function Result(props) {
               }}
               disabled={tokens.dBTC.amount === '0'}
             />
-            <FormHelperText>Neuer Preis pro dBTC</FormHelperText>
+            <HelperText>Neuer Preis pro dBTC</HelperText>
           </div>
 
           <div>
@@ -121,7 +121,7 @@ export default function Result(props) {
               }}
               disabled={tokens.dUSDC.amount === '0'}
             />
-            <FormHelperText>Neuer Preis pro dUSDC</FormHelperText>
+            <HelperText>Neuer Preis pro dUSDC</HelperText>
           </div>
 
           <div>
@@ -138,7 +138,7 @@ export default function Result(props) {
               }}
               disabled={tokens.dUSDT.amount === '0'}
             />
-            <FormHelperText>Neuer Preis pro dUSDT</FormHelperText>
+            <HelperText>Neuer Preis pro dUSDT</HelperText>
           </div>
         </InputGroup>
 

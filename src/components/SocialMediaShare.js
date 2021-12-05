@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Heading from './styled/Heading';
+import { textColor } from './styled/Themes';
 
 import socialMedia from '../data/socialMedia';
 
@@ -45,7 +46,7 @@ const Item = styled.a`
   align-items: center;
   padding: 12px;
   transition: 0.2s;
-  color: #000;
+  color: ${textColor};
 
   &:hover {
     color: #f069c5;

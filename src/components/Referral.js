@@ -1,10 +1,10 @@
 import React from 'react';
-import Alert from '@mui/material/Alert';
 
 import Step from './styled/Step';
 import Heading from './styled/Heading';
 import Text from './styled/Text';
 import Link from './styled/Link';
+import Alert from './styled/Alert';
 
 import referrals from '../data/referrals';
 
