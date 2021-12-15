@@ -1,5 +1,13 @@
 const loanSchemes = [
   {
+    collateral: 150,
+    interestRate: 5,
+  },
+  {
+    collateral: 175,
+    interestRate: 3,
+  },
+  {
     collateral: 200,
     interestRate: 2,
   },
