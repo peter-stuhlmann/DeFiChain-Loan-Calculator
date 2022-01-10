@@ -129,6 +129,7 @@ export default function Home() {
           handleChange={handleChange}
           total={total}
           dfiShare={dfiShare}
+          loanSchemeIndex={values.loanScheme}
         />
         <Result
           values={values}

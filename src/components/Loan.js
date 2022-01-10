@@ -1,6 +1,8 @@
 import React from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import Interests from './Interests';
+
 import Step from './styled/Step';
 import Heading from './styled/Heading';
 import Text from './styled/Text';
@@ -8,7 +10,14 @@ import Input from './styled/Input';
 import Sum from './styled/Sum';
 
 export default function Loan(props) {
-  const { values, loanSchemes, handleChange, total, dfiShare } = props;
+  const {
+    values,
+    loanSchemes,
+    handleChange,
+    total,
+    dfiShare,
+    loanSchemeIndex,
+  } = props;
 
   const maxLoanInUsd =
     (total / loanSchemes[values.loanScheme].collateral) * 100;
@@ -48,6 +57,11 @@ export default function Loan(props) {
         />
         <Sum>Besicherungsverhältnis: {collateralRatio}%</Sum>
       </div>
+      <Interests
+        loanSchemes={loanSchemes}
+        loanSchemeIndex={loanSchemeIndex}
+        loan={values.loan}
+      />
     </Step>
   );
 }
