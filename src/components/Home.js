@@ -35,45 +35,29 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API)
+      .get(process.env.REACT_APP_API + '/prices')
       .then((response) => {
         setTokens({
           ...tokens,
           DFI: {
             ...tokens.DFI,
-            price: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'DFI').priceUSD
-            ),
-            newPrice: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'DFI').priceUSD
-            ),
+            price: response.data[1].price,
+            newPrice: response.data[1].price,
           },
           dBTC: {
             ...tokens.dBTC,
-            price: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'BTC').priceUSD
-            ),
-            newPrice: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'BTC').priceUSD
-            ),
+            price: response.data[2].price,
+            newPrice: response.data[2].price,
           },
           dUSDC: {
             ...tokens.dUSDC,
-            price: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'USDC').priceUSD
-            ),
-            newPrice: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'USDC').priceUSD
-            ),
+            price: response.data[4].price,
+            newPrice: response.data[4].price,
           },
           dUSDT: {
             ...tokens.dUSDT,
-            price: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'USDT').priceUSD
-            ),
-            newPrice: parseFloat(
-              response.data?.coins.find((coin) => coin.id === 'USDT').priceUSD
-            ),
+            price: response.data[5].price,
+            newPrice: response.data[5].price,
           },
         });
         setIsLoaded(true);
