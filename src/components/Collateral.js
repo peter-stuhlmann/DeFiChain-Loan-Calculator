@@ -74,7 +74,15 @@ export default function Collateral(props) {
           endAdornment={<InputAdornment position="end">$</InputAdornment>}
           disabled
         />
-        <Sum>Summe DUSD in $: {sum.dUSD.toFixed(2)}</Sum>
+        <Sum>
+          Summe DUSD in $: {sum.dUSD.toFixed(2)}{' '}
+          {sum.dUSD > 0 && (
+            <>
+              (Besicherungsfaktor:
+              {tokens.dUSD.factor})
+            </>
+          )}
+        </Sum>
       </InputGroup>
 
       <InputGroup>

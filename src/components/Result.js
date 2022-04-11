@@ -15,11 +15,11 @@ export default function Result(props) {
   const [alert, setAlert] = useState({ status: '', message: '' });
 
   const newSum = {
-    DFI: tokens.DFI.newPrice * tokens.DFI.amount,
-    dBTC: tokens.dBTC.newPrice * tokens.dBTC.amount,
-    dUSD: 1 * tokens.dUSD.amount,
-    dUSDC: tokens.dUSDC.newPrice * tokens.dUSDC.amount,
-    dUSDT: tokens.dUSDT.newPrice * tokens.dUSDT.amount,
+    DFI: tokens.DFI.newPrice * tokens.DFI.amount * tokens.DFI.factor,
+    dBTC: tokens.dBTC.newPrice * tokens.dBTC.amount * tokens.dBTC.factor,
+    dUSD: 1 * tokens.dUSD.amount * tokens.dUSD.factor,
+    dUSDC: tokens.dUSDC.newPrice * tokens.dUSDC.amount * tokens.dUSDC.factor,
+    dUSDT: tokens.dUSDT.newPrice * tokens.dUSDT.amount * tokens.dUSDT.factor,
   };
 
   const newTotal =

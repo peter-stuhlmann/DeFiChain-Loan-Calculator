@@ -85,11 +85,11 @@ export default function Home() {
   };
 
   const sum = {
-    DFI: tokens.DFI.price * tokens.DFI.amount,
-    dBTC: tokens.dBTC.price * tokens.dBTC.amount,
-    dUSD: 1 * tokens.dUSD.amount,
-    dUSDC: tokens.dUSDC.price * tokens.dUSDC.amount,
-    dUSDT: tokens.dUSDT.price * tokens.dUSDT.amount,
+    DFI: tokens.DFI.price * tokens.DFI.amount * tokens.DFI.factor,
+    dBTC: tokens.dBTC.price * tokens.dBTC.amount * tokens.dBTC.factor,
+    dUSD: 1 * tokens.dUSD.amount * tokens.dUSD.factor,
+    dUSDC: tokens.dUSDC.price * tokens.dUSDC.amount * tokens.dUSDC.factor,
+    dUSDT: tokens.dUSDT.price * tokens.dUSDT.amount * tokens.dUSDT.factor,
   };
 
   const total = sum.DFI + sum.dBTC + sum.dUSD + sum.dUSDC + sum.dUSDT;
