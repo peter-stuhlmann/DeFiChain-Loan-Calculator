@@ -17,11 +17,13 @@ export default function Result(props) {
   const newSum = {
     DFI: tokens.DFI.newPrice * tokens.DFI.amount,
     dBTC: tokens.dBTC.newPrice * tokens.dBTC.amount,
+    dUSD: 1 * tokens.dUSD.amount,
     dUSDC: tokens.dUSDC.newPrice * tokens.dUSDC.amount,
     dUSDT: tokens.dUSDT.newPrice * tokens.dUSDT.amount,
   };
 
-  const newTotal = newSum.DFI + newSum.dBTC + newSum.dUSDC + newSum.dUSDT;
+  const newTotal =
+    newSum.DFI + newSum.dBTC + newSum.dUSD + newSum.dUSDC + newSum.dUSDT;
 
   const newCollateralMinValue =
     (values.loan / 100) * loanSchemes[values.loanScheme].collateral;

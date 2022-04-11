@@ -56,6 +56,28 @@ export default function Collateral(props) {
       </InputGroup>
 
       <InputGroup>
+        {/* DUSD */}
+        <Input
+          type="number"
+          value={tokens.dUSD.amount}
+          onChange={handleTokens('dUSD', 'amount')}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
+          inputProps={{
+            step: '1',
+            'aria-label': 'Menge an DUSD',
+            min: 0,
+          }}
+        />
+        <Input
+          type="number"
+          value={1}
+          endAdornment={<InputAdornment position="end">$</InputAdornment>}
+          disabled
+        />
+        <Sum>Summe DUSD in $: {sum.dUSD.toFixed(2)}</Sum>
+      </InputGroup>
+
+      <InputGroup>
         {/* BTC */}
         <Input
           type="number"
