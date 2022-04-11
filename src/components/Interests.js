@@ -26,19 +26,10 @@ export default function Interests(props) {
     },
   ];
 
-  const interval = 365 * 24 * 60 * 2;
   const interestRate = loanSchemes[loanSchemeIndex].interestRate;
 
   const interestCalcAPR = (interestPeriod) =>
     ((loan / 100) * interestRate) / interestPeriod;
-
-  const interestCalcAPY = (interestPeriod) =>
-    loan *
-      Math.pow(
-        1 + interestRate / 100 / interval,
-        (1 / interestPeriod) * interval
-      ) -
-    loan;
 
   return (
     <>
@@ -49,10 +40,9 @@ export default function Interests(props) {
       </Text>
       <List>
         {interests.map((interest) => (
-          <ListItem>
+          <ListItem key={interest.periodName}>
             <span>pro {interest.periodName}:</span>{' '}
-            {interestCalcAPR(interest.period).toFixed(4)} USD (APR);{' '}
-            {interestCalcAPY(interest.period).toFixed(4)} USD (APY)
+            {interestCalcAPR(interest.period).toFixed(4)} USD
           </ListItem>
         ))}
       </List>
