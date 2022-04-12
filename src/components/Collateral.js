@@ -45,14 +45,14 @@ export default function Collateral(props) {
           type="number"
           value={parseFloat(tokens.DFI.price).toFixed(2)}
           onChange={handleTokens('DFI', 'price')}
-          endAdornment={<InputAdornment position="end">$</InputAdornment>}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
           inputProps={{
             step: '0.1',
             'aria-label': 'Dollar-Preis',
             min: 0,
           }}
         />
-        <Sum>Summe DFI in $: {sum.DFI.toFixed(2)}</Sum>
+        <Sum>Summe DFI in DUSD: {sum.DFI.toFixed(2)}</Sum>
       </InputGroup>
 
       <InputGroup>
@@ -71,17 +71,12 @@ export default function Collateral(props) {
         <Input
           type="number"
           value={1}
-          endAdornment={<InputAdornment position="end">$</InputAdornment>}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
           disabled
         />
         <Sum>
-          Summe DUSD in $: {sum.dUSD.toFixed(2)}{' '}
-          {sum.dUSD > 0 && (
-            <>
-              (Besicherungsfaktor:
-              {tokens.dUSD.factor})
-            </>
-          )}
+          Summe DUSD: {sum.dUSD.toFixed(2)}{' '}
+          {sum.dUSD > 0 && <>(Besicherungsfaktor: {tokens.dUSD.factor})</>}
         </Sum>
       </InputGroup>
 
@@ -102,14 +97,41 @@ export default function Collateral(props) {
           type="number"
           value={parseFloat(tokens.dBTC.price).toFixed(2)}
           onChange={handleTokens('dBTC', 'price')}
-          endAdornment={<InputAdornment position="end">$</InputAdornment>}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
           inputProps={{
             step: '0.1',
             'aria-label': 'Dollar-Preis',
             min: 0,
           }}
         />
-        <Sum>Summe dBTC in $: {sum.dBTC.toFixed(2)}</Sum>
+        <Sum>Summe dBTC in DUSD: {sum.dBTC.toFixed(2)}</Sum>
+      </InputGroup>
+
+      <InputGroup>
+        {/* ETH */}
+        <Input
+          type="number"
+          value={tokens.dETH.amount}
+          onChange={handleTokens('dETH', 'amount')}
+          endAdornment={<InputAdornment position="end">dETH</InputAdornment>}
+          inputProps={{
+            step: '0.1',
+            'aria-label': 'Menge an dETH',
+            min: 0,
+          }}
+        />
+        <Input
+          type="number"
+          value={parseFloat(tokens.dETH.price).toFixed(2)}
+          onChange={handleTokens('dETH', 'price')}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
+          inputProps={{
+            step: '0.1',
+            'aria-label': 'Dollar-Preis',
+            min: 0,
+          }}
+        />
+        <Sum>Summe dETH in DUSD: {sum.dETH.toFixed(2)}</Sum>
       </InputGroup>
 
       <InputGroup>
@@ -128,14 +150,14 @@ export default function Collateral(props) {
           type="number"
           value={parseFloat(tokens.dUSDC.price).toFixed(2)}
           onChange={handleTokens('dUSDC', 'price')}
-          endAdornment={<InputAdornment position="end">$</InputAdornment>}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
           inputProps={{
             step: '0.1',
             'aria-label': 'Dollar-Preis',
             min: 0,
           }}
         />
-        <Sum>Summe dUSDC in $: {sum.dUSDC.toFixed(2)}</Sum>
+        <Sum>Summe dUSDC in DUSD: {sum.dUSDC.toFixed(2)}</Sum>
       </InputGroup>
 
       <InputGroup>
@@ -154,14 +176,14 @@ export default function Collateral(props) {
           type="number"
           value={parseFloat(tokens.dUSDT.price).toFixed(2)}
           onChange={handleTokens('dUSDT', 'price')}
-          endAdornment={<InputAdornment position="end">$</InputAdornment>}
+          endAdornment={<InputAdornment position="end">DUSD</InputAdornment>}
           inputProps={{
             step: '0.1',
             'aria-label': 'Dollar-Preis',
             min: 0,
           }}
         />
-        <Sum>Summe dUSDT in $: {sum.dUSDT.toFixed(2)}</Sum>
+        <Sum>Summe dUSDT in DUSD: {sum.dUSDT.toFixed(2)}</Sum>
       </InputGroup>
       <Text>
         Dein Collateral hat einen Wert von {total.toFixed(2)}$.

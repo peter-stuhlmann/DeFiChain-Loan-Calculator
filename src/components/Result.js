@@ -17,13 +17,19 @@ export default function Result(props) {
   const newSum = {
     DFI: tokens.DFI.newPrice * tokens.DFI.amount * tokens.DFI.factor,
     dBTC: tokens.dBTC.newPrice * tokens.dBTC.amount * tokens.dBTC.factor,
+    dETH: tokens.dETH.newPrice * tokens.dETH.amount * tokens.dETH.factor,
     dUSD: 1 * tokens.dUSD.amount * tokens.dUSD.factor,
     dUSDC: tokens.dUSDC.newPrice * tokens.dUSDC.amount * tokens.dUSDC.factor,
     dUSDT: tokens.dUSDT.newPrice * tokens.dUSDT.amount * tokens.dUSDT.factor,
   };
 
   const newTotal =
-    newSum.DFI + newSum.dBTC + newSum.dUSD + newSum.dUSDC + newSum.dUSDT;
+    newSum.DFI +
+    newSum.dBTC +
+    newSum.dETH +
+    newSum.dUSD +
+    newSum.dUSDC +
+    newSum.dUSDT;
 
   const newCollateralMinValue =
     (values.loan / 100) * loanSchemes[values.loanScheme].collateral;
@@ -82,7 +88,9 @@ export default function Result(props) {
               type="number"
               value={parseFloat(tokens.DFI.newPrice).toFixed(2)}
               onChange={handleTokens('DFI', 'newPrice')}
-              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end">DUSD</InputAdornment>
+              }
               inputProps={{
                 step: '0.1',
                 'aria-label': 'Neuer DFI-Preis',
@@ -98,7 +106,9 @@ export default function Result(props) {
               type="number"
               value={parseFloat(tokens.dBTC.newPrice).toFixed(2)}
               onChange={handleTokens('dBTC', 'newPrice')}
-              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end">DUSD</InputAdornment>
+              }
               inputProps={{
                 step: '0.1',
                 'aria-label': 'Neuer dBTC-Preis',
@@ -110,12 +120,33 @@ export default function Result(props) {
           </div>
 
           <div>
+            {/* dETH */}
+            <Input
+              type="number"
+              value={parseFloat(tokens.dETH.newPrice).toFixed(2)}
+              onChange={handleTokens('dETH', 'newPrice')}
+              endAdornment={
+                <InputAdornment position="end">DUSD</InputAdornment>
+              }
+              inputProps={{
+                step: '0.1',
+                'aria-label': 'Neuer dETH-Preis',
+                min: 0,
+              }}
+              disabled={tokens.dETH.amount === '0'}
+            />
+            <HelperText>Neuer Preis pro dETH</HelperText>
+          </div>
+
+          <div>
             {/* dUSDC */}
             <Input
               type="number"
               value={parseFloat(tokens.dUSDC.newPrice).toFixed(2)}
               onChange={handleTokens('dUSDC', 'newPrice')}
-              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end">DUSD</InputAdornment>
+              }
               inputProps={{
                 step: '0.1',
                 'aria-label': 'Neuer dUSDC-Preis',
@@ -132,7 +163,9 @@ export default function Result(props) {
               type="number"
               value={parseFloat(tokens.dUSDT.newPrice).toFixed(2)}
               onChange={handleTokens('dUSDT', 'newPrice')}
-              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end">DUSD</InputAdornment>
+              }
               inputProps={{
                 step: '0.1',
                 'aria-label': 'Neuer dUSDT-Preis',

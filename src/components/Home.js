@@ -49,6 +49,11 @@ export default function Home() {
             price: response.data[2].price,
             newPrice: response.data[2].price,
           },
+          dETH: {
+            ...tokens.dETH,
+            price: response.data[3].price,
+            newPrice: response.data[3].price,
+          },
           dUSD: {
             ...tokens.dUSD,
             price: response.data[0].price,
@@ -87,12 +92,14 @@ export default function Home() {
   const sum = {
     DFI: tokens.DFI.price * tokens.DFI.amount * tokens.DFI.factor,
     dBTC: tokens.dBTC.price * tokens.dBTC.amount * tokens.dBTC.factor,
+    dETH: tokens.dETH.price * tokens.dETH.amount * tokens.dETH.factor,
     dUSD: 1 * tokens.dUSD.amount * tokens.dUSD.factor,
     dUSDC: tokens.dUSDC.price * tokens.dUSDC.amount * tokens.dUSDC.factor,
     dUSDT: tokens.dUSDT.price * tokens.dUSDT.amount * tokens.dUSDT.factor,
   };
 
-  const total = sum.DFI + sum.dBTC + sum.dUSD + sum.dUSDC + sum.dUSDT;
+  const total =
+    sum.DFI + sum.dBTC + sum.dETH + sum.dUSD + sum.dUSDC + sum.dUSDT;
 
   const dfiShare = (100 / total) * sum.DFI;
 

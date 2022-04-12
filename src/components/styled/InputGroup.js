@@ -18,13 +18,13 @@ const InputGroup = styled.div`
 
   & > div {
     margin-right: 15px;
-    ${(props) => props.flex && 'flex: 0 0 calc((100% - (3 * 15px)) / 4);'}
+    ${(props) => props.flex && 'flex: 0 0 calc((100% - (4 * 15px)) / 5);'}
 
     &:last-child {
       margin-right: 0;
     }
 
-    @media (max-width: 758px) {
+    @media (max-width: 1000px) {
       flex: 0 0 calc(50% - 7.5px);
 
       &:nth-child(2n) {
