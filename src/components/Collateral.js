@@ -24,9 +24,8 @@ export default function Collateral(props) {
     <Step>
       <Heading>3. Schritt: Collateral hinterlegen</Heading>
       <Text>
-        Das Collateral muss zu mind. 50% aus DFI bestehen, der Rest kann
-        entweder DFI oder dBTC, dUSDC oder dUSDT sein. Beacte, dass die Assets
-        unterschiedliche Gewichtungen (collateral factor) haben können.
+        Das Collateral muss zu mind. 50% aus DFI/DUSD bestehen. Der Rest kann
+        entweder DFI, DUSD, dBTC, dETH, dUSDC oder dUSDT sein.
       </Text>
 
       <InputGroup>
@@ -188,8 +187,8 @@ export default function Collateral(props) {
       <Text>
         Dein Collateral hat einen Wert von {total.toFixed(2)}$.
         <br />
-        {dfiShare.toFixed(2)}% davon sind DFI. Das Minimum von 50% ist damit{' '}
-        {result} erreicht.
+        {dfiShare.toFixed(2)}% davon sind DFI/DUSD. Das Minimum von 50% ist
+        damit {result} erreicht.
       </Text>
     </Step>
   );

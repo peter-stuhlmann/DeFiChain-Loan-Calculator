@@ -101,7 +101,7 @@ export default function Home() {
   const total =
     sum.DFI + sum.dBTC + sum.dETH + sum.dUSD + sum.dUSDC + sum.dUSDT;
 
-  const dfiShare = (100 / total) * sum.DFI;
+  const dfiShare = (100 / total) * (sum.DFI + sum.dUSD);
 
   return isLoaded ? (
     <>
